@@ -51,19 +51,12 @@ export default function ShopCard({ shop, detailed = false }: ShopCardProps) {
             {shop.access}
           </p>
         )}
-        {detailed ? (
-          <div
-            className="text-xs text-gray-600 line-clamp-2"
-            dangerouslySetInnerHTML={{ __html: shop.appeal }}
-          />
-        ) : (
-          shop.tags && (
-            <div className="flex gap-1 flex-wrap">
-              {shop.tags.slice(0, 2).map((tag) => (
-                <TagBadge key={tag} tag={tag} />
-              ))}
-            </div>
-          )
+        {shop.tags && (
+          <div className="flex gap-1 flex-wrap">
+            {shop.tags.slice(0, 2).map((tag) => (
+              <TagBadge key={tag} tag={tag} />
+            ))}
+          </div>
         )}
       </div>
     </Link>

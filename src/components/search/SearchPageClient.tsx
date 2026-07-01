@@ -7,6 +7,8 @@ import { faList, faMap } from "@fortawesome/free-solid-svg-icons";
 import FilterBar from "./FilterBar";
 import ShopCard from "@/components/shop/ShopCard";
 import LazyMapView from "@/components/map/LazyMapView";
+import Pagination from "@/components/ui/Pagination";
+import { PAGE_SIZE } from "@/lib/constants";
 import type { Shop, ShopCategory, ShopTag } from "@/lib/types";
 
 function parseTags(value: string | null): ShopTag[] {
@@ -42,15 +44,17 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
   const selectedTags = parseTags(searchParams.get("tags"));
   const [selectedShopId, setSelectedShopId] = useState<string | undefined>(undefined);
 
-  const updateParams = (category?: ShopCategory, tags?: ShopTag[]) => {
+  const updateParams = (category?: ShopCategory, tags?: ShopTag[], page = 1) => {
     const params = new URLSearchParams();
     if (category) params.set("category", category);
     if (tags && tags.length > 0) params.set("tags", tags.join(","));
+    if (page > 1) params.set("page", String(page));
     router.replace(`/search${params.toString() ? `?${params}` : ""}`, {
       scroll: false,
     });
   };
 
+  // フィルタ条件を変えたときは1ページ目に戻す
   const handleToggleCategory = (category: ShopCategory) => {
     updateParams(selectedCategory === category ? undefined : category, selectedTags);
   };
@@ -62,9 +66,17 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
     updateParams(selectedCategory, next);
   };
 
+  const getPageHref = (page: number) => {
+    const params = new URLSearchParams();
+    if (selectedCategory) params.set("category", selectedCategory);
+    if (selectedTags.length > 0) params.set("tags", selectedTags.join(","));
+    if (page > 1) params.set("page", String(page));
+    return `/search${params.toString() ? `?${params}` : ""}`;
+  };
+
   const filteredShops = useMemo(() => {
     return shops.filter((shop) => {
-      if (selectedCategory && shop.category !== selectedCategory) return false;
+      if (selectedCategory && !shop.category.includes(selectedCategory)) return false;
       if (selectedTags.length > 0) {
         const shopTags = shop.tags || [];
         if (!selectedTags.every((tag) => shopTags.includes(tag))) return false;
@@ -72,6 +84,13 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
       return true;
     });
   }, [shops, selectedCategory, selectedTags]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredShops.length / PAGE_SIZE));
+  const currentPage = Math.min(Math.max(1, Number(searchParams.get("page")) || 1), totalPages);
+  const pagedShops = useMemo(
+    () => filteredShops.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE),
+    [filteredShops, currentPage]
+  );
 
   const heading = selectedCategory
     ? `板橋区周辺の${selectedCategory}（${filteredShops.length}件）`
@@ -118,11 +137,11 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
           }`}
         >
           <h2 className="text-lg lg:text-xl font-bold text-gray-800 mb-4 lg:mb-6">{heading}</h2>
-          {filteredShops.length === 0 ? (
+          {pagedShops.length === 0 ? (
             <p className="text-sm text-gray-500">条件に合うスポットが見つかりませんでした。</p>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-              {filteredShops.map((shop) => (
+              {pagedShops.map((shop) => (
                 <div
                   key={shop.id}
                   onMouseEnter={() => setSelectedShopId(shop.id)}
@@ -132,6 +151,7 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
               ))}
             </div>
           )}
+          <Pagination currentPage={currentPage} totalPages={totalPages} getHref={getPageHref} />
         </div>
 
         {/* マップ */}
@@ -142,7 +162,7 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
         >
           {mapLoaded && (
             <LazyMapView
-              shops={filteredShops}
+              shops={pagedShops}
               selectedShopId={selectedShopId}
               height="100%"
             />

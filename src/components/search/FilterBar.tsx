@@ -42,7 +42,7 @@ export default function FilterBar({
               onClick={() => onToggleTag(tag)}
               className="bg-brand-light text-brand-dark px-3 py-1.5 rounded-full text-xs font-bold flex items-center border border-brand/20 shrink-0"
             >
-              <FontAwesomeIcon icon={TAG_ICONS[tag]} className="mr-1.5" />
+              {TAG_ICONS[tag] && <FontAwesomeIcon icon={TAG_ICONS[tag]!} className="mr-1.5" />}
               {tag}
               <FontAwesomeIcon icon={faXmark} className="ml-2" />
             </button>
@@ -80,7 +80,7 @@ export default function FilterBar({
                   : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"
               }`}
             >
-              <FontAwesomeIcon icon={TAG_ICONS[tag]} className="mr-1.5" />
+              {TAG_ICONS[tag] && <FontAwesomeIcon icon={TAG_ICONS[tag]!} className="mr-1.5" />}
               {tag}
             </button>
           );

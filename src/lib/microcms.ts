@@ -23,7 +23,7 @@ export async function getAllShops(): Promise<Shop[]> {
 
   const res = await client.getList<Shop>({
     endpoint: SHOP_ENDPOINT,
-    queries: { limit: 100 },
+    queries: { limit: 100, orders: "-publishedAt" },
   });
   return (res as MicroCMSListResponse<Shop>).contents;
 }

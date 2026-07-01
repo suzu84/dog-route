@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import BottomNav from "@/components/layout/BottomNav";
+import Footer from "@/components/layout/Footer";
 
 config.autoAddCss = false;
 
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-gray-50">
         <Header />
         <main className="flex-1 pb-20 lg:pb-0">{children}</main>
+        <Footer />
         <BottomNav />
       </body>
     </html>

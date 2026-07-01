@@ -52,7 +52,10 @@ export default function ShopCard({ shop, detailed = false }: ShopCardProps) {
           </p>
         )}
         {detailed ? (
-          <p className="text-xs text-gray-600 line-clamp-2">{shop.appeal}</p>
+          <div
+            className="text-xs text-gray-600 line-clamp-2"
+            dangerouslySetInnerHTML={{ __html: shop.appeal }}
+          />
         ) : (
           shop.tags && (
             <div className="flex gap-1 flex-wrap">

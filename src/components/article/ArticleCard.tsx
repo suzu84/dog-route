@@ -5,9 +5,11 @@ import type { Article } from "@/lib/types";
 export default function ArticleCard({
   article,
   layout = "vertical",
+  showCategory = true,
 }: {
   article: Article;
   layout?: "vertical" | "horizontal";
+  showCategory?: boolean;
 }) {
   if (layout === "horizontal") {
     return (
@@ -48,9 +50,11 @@ export default function ArticleCard({
         />
       </div>
       <div className="p-3 lg:p-4">
-        <span className="text-[10px] font-bold text-brand bg-brand-light px-2 py-1 rounded-full mb-2 inline-block">
-          {article.category}
-        </span>
+        {showCategory && (
+          <span className="text-[10px] font-bold text-brand bg-brand-light px-2 py-1 rounded-full mb-2 inline-block">
+            {article.category}
+          </span>
+        )}
         <h3 className="text-sm font-bold text-gray-800 leading-snug line-clamp-2">
           {article.title}
         </h3>

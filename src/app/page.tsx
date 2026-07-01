@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { getAllArticles, getAllShops } from "@/lib/microcms";
-import { FEATURED_TAGS } from "@/lib/constants";
 import { SHOP_CATEGORIES } from "@/lib/types";
 import CategoryLink from "@/components/filters/CategoryLink";
-import TagLink from "@/components/filters/TagLink";
+import TagsSection from "@/components/filters/TagsSection";
 import ShopCard from "@/components/shop/ShopCard";
 import ArticleCard from "@/components/article/ArticleCard";
 
@@ -27,14 +26,7 @@ export default async function HomePage() {
               ))}
             </div>
             <div className="hidden lg:block w-px h-20 bg-gray-200" />
-            <div className="flex-1">
-              <p className="text-xs font-bold text-gray-500 mb-3">こだわり条件で一発検索</p>
-              <div className="flex flex-wrap gap-2">
-                {FEATURED_TAGS.map((tag) => (
-                  <TagLink key={tag} tag={tag} />
-                ))}
-              </div>
-            </div>
+            <TagsSection />
           </div>
         </div>
 
@@ -47,14 +39,7 @@ export default async function HomePage() {
                 すべて見る
               </Link>
             </h2>
-            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 lg:hidden">
-              {newShops.map((shop) => (
-                <div key={shop.id} className="min-w-[220px]">
-                  <ShopCard shop={shop} />
-                </div>
-              ))}
-            </div>
-            <div className="hidden lg:grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-4 lg:gap-6">
               {newShops.map((shop) => (
                 <ShopCard key={shop.id} shop={shop} />
               ))}
@@ -69,7 +54,14 @@ export default async function HomePage() {
                 すべて見る
               </Link>
             </h2>
-            <div className="flex flex-col gap-4 lg:gap-5">
+            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 lg:hidden">
+              {featuredArticles.map((article) => (
+                <div key={article.id} className="min-w-[220px]">
+                  <ArticleCard article={article} />
+                </div>
+              ))}
+            </div>
+            <div className="hidden lg:flex lg:flex-col gap-5">
               {featuredArticles.map((article) => (
                 <ArticleCard key={article.id} article={article} />
               ))}

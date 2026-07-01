@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: ShopPageProps): Promise<Metad
 
   return {
     title: shop.name,
-    description: `${shop.name}（${shop.category}・${shop.address}）の飼い主目線のリアルな情報。${shop.appeal.replace(/<[^>]+>/g, "").slice(0, 80)}`,
+    description: `${shop.name}（${shop.category.join("・")}・${shop.address}）の飼い主目線のリアルな情報。${shop.appeal.replace(/<[^>]+>/g, "").slice(0, 80)}`,
   };
 }
 

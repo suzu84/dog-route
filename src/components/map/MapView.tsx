@@ -77,7 +77,9 @@ export default function MapView({
                     isSelected ? "bg-brand text-white" : "bg-gray-900 text-white"
                   }`}
                 >
-                  <FontAwesomeIcon icon={CATEGORY_ICONS[shop.category]} />
+                  {CATEGORY_ICONS[shop.category[0]] && (
+                    <FontAwesomeIcon icon={CATEGORY_ICONS[shop.category[0]]} />
+                  )}
                   {shop.name}
                 </div>
               </AdvancedMarker>

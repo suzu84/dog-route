@@ -1,33 +1,26 @@
-export type ShopCategory = "カフェ" | "サロン" | "ドッグラン" | "病院";
+export type ShopCategory = "カフェ・レストラン" | "トリミングサロン" | "ドッグラン" | "病院";
 
 export const SHOP_CATEGORIES: ShopCategory[] = [
-  "カフェ",
-  "サロン",
+  "カフェ・レストラン",
+  "トリミングサロン",
   "ドッグラン",
   "病院",
 ];
 
-export type ShopTag =
-  | "駐車場あり"
-  | "大型犬OK"
-  | "屋内"
-  | "屋外"
-  | "小型犬専用エリアあり"
-  | "現金のみ"
-  | "ネット予約可"
-  | "カート入店OK"
-  | "ワンコメニューあり";
+/** microCMS側でタグを追加した場合、このファイルの変更は不要。
+ *  フィルターバーに表示したい場合は constants.ts の SHOP_TAGS に追記する。
+ *  アイコンを付けたい場合は constants.ts の TAG_ICONS に追記する。 */
+export type ShopTag = string;
 
 export const SHOP_TAGS: ShopTag[] = [
   "駐車場あり",
   "大型犬OK",
-  "屋内",
-  "屋外",
+  "屋内可",
   "小型犬専用エリアあり",
   "現金のみ",
+  "現金以外可",
   "ネット予約可",
-  "カート入店OK",
-  "ワンコメニューあり",
+  "わんこメニューあり",
 ];
 
 export interface MicroCMSImage {
@@ -46,7 +39,8 @@ export interface MicroCMSListContent {
 
 export interface Shop extends MicroCMSListContent {
   name: string;
-  category: ShopCategory;
+  /** microCMS側で複数選択可のセレクトフィールドのため配列 */
+  category: ShopCategory[];
   mainImage: MicroCMSImage;
   tags?: ShopTag[];
   appeal: string;
@@ -62,6 +56,8 @@ export interface Shop extends MicroCMSListContent {
   /** 検索結果カードに表示する最寄駅などの補足（要件にはないが表示用に任意で利用） */
   access?: string;
   rating?: number;
+  /** トップページ「おすすめスポット」枠への掲載フラグ（将来、新着と分離する際に使用） */
+  isRecommended?: boolean;
 }
 
 export type ArticleCategory = "まとめ" | "インタビュー" | "お役立ち";

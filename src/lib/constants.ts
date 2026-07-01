@@ -3,7 +3,6 @@ import {
   faScissors,
   faTree,
   faHospital,
-  faCartShopping,
   faUmbrella,
   faDog,
   faFan,
@@ -11,6 +10,7 @@ import {
   faHouse,
   faBone,
   faMoneyBillWave,
+  faCreditCard,
   faCalendarCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
@@ -20,27 +20,28 @@ export const SITE_NAME = "DOG ROUTE";
 export const SITE_AREA = "板橋区周辺";
 
 export const CATEGORY_ICONS: Record<ShopCategory, IconDefinition> = {
-  カフェ: faMugHot,
-  サロン: faScissors,
+  "カフェ・レストラン": faMugHot,
+  トリミングサロン: faScissors,
   ドッグラン: faTree,
   病院: faHospital,
 };
 
-export const TAG_ICONS: Record<ShopTag, IconDefinition> = {
+/** タグ名→アイコンのマッピング。CMS側で新しいタグを追加した場合、
+ *  アイコンを付けたい時だけここに追記する（追記しなくてもタグは表示される）。 */
+export const TAG_ICONS: Partial<Record<string, IconDefinition>> = {
   駐車場あり: faSquareParking,
   大型犬OK: faDog,
-  屋内: faHouse,
-  屋外: faTree,
+  屋内可: faHouse,
   小型犬専用エリアあり: faDog,
   現金のみ: faMoneyBillWave,
+  現金以外可: faCreditCard,
   ネット予約可: faCalendarCheck,
-  カート入店OK: faCartShopping,
-  ワンコメニューあり: faBone,
+  わんこメニューあり: faBone,
 };
 
 export const FEATURED_TAGS: ShopTag[] = [
-  "カート入店OK",
   "大型犬OK",
+  "屋内可",
   "ネット予約可",
 ];
 
@@ -48,3 +49,6 @@ export const MOOD_TAG_ICON = faUmbrella;
 export const AIRCON_ICON = faFan;
 
 export const BOOKMARK_STORAGE_KEY = "dog_route_bookmarks";
+
+/** 検索結果・記事一覧の1ページあたりの表示件数 */
+export const PAGE_SIZE = 20;

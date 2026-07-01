@@ -3,14 +3,12 @@
 import { useRouter } from "next/navigation";
 import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { CATEGORY_ICONS } from "@/lib/constants";
+import { faMapLocationDot, faPaw } from "@fortawesome/free-solid-svg-icons";
 import type { Shop } from "@/lib/types";
 
 const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 const GOOGLE_MAPS_MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID || "DEMO_MAP_ID";
 
-// 板橋区周辺のデフォルト中心地点
 const DEFAULT_CENTER = { lat: 35.7556, lng: 139.7093 };
 
 interface MapViewProps {
@@ -35,6 +33,26 @@ function MapPlaceholder({ height }: { height: string }) {
   );
 }
 
+function PawMarker({ isSelected }: { isSelected: boolean }) {
+  return (
+    <div className="flex flex-col items-center cursor-pointer hover:scale-110 transition">
+      <div
+        className={`w-10 h-10 rounded-full shadow-lg border-2 border-white flex items-center justify-center ${
+          isSelected ? "bg-brand" : "bg-gray-800"
+        }`}
+      >
+        <FontAwesomeIcon icon={faPaw} className="text-white text-base" />
+      </div>
+      {/* ピンの尾 */}
+      <div
+        className={`w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-l-transparent border-r-transparent ${
+          isSelected ? "border-t-brand" : "border-t-gray-800"
+        }`}
+      />
+    </div>
+  );
+}
+
 export default function MapView({
   shops,
   selectedShopId,
@@ -47,44 +65,39 @@ export default function MapView({
     return <MapPlaceholder height={height} />;
   }
 
+  // 店舗詳細など1件表示の場合はその座標を中心に
+  const isSingle = shops.length === 1;
+  const center = isSingle
+    ? { lat: shops[0].lat, lng: shops[0].lng }
+    : DEFAULT_CENTER;
+  const zoom = isSingle ? 17 : 13;
+
   return (
     <div style={{ height }} className="w-full">
       <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
         <Map
           mapId={GOOGLE_MAPS_MAP_ID}
-          defaultCenter={DEFAULT_CENTER}
-          defaultZoom={13}
+          defaultCenter={center}
+          defaultZoom={zoom}
           gestureHandling="greedy"
           disableDefaultUI={false}
           style={{ width: "100%", height: "100%" }}
         >
-          {shops.map((shop) => {
-            const isSelected = shop.id === selectedShopId;
-            return (
-              <AdvancedMarker
-                key={shop.id}
-                position={{ lat: shop.lat, lng: shop.lng }}
-                onClick={() => {
-                  if (onSelectShop) {
-                    onSelectShop(shop.id);
-                  } else {
-                    router.push(`/shop/${shop.id}`);
-                  }
-                }}
-              >
-                <div
-                  className={`flex items-center gap-1 px-3 py-1.5 rounded-full shadow-lg border-2 border-white text-xs font-bold cursor-pointer hover:scale-110 transition ${
-                    isSelected ? "bg-brand text-white" : "bg-gray-900 text-white"
-                  }`}
-                >
-                  {CATEGORY_ICONS[shop.category[0]] && (
-                    <FontAwesomeIcon icon={CATEGORY_ICONS[shop.category[0]]} />
-                  )}
-                  {shop.name}
-                </div>
-              </AdvancedMarker>
-            );
-          })}
+          {shops.map((shop) => (
+            <AdvancedMarker
+              key={shop.id}
+              position={{ lat: shop.lat, lng: shop.lng }}
+              onClick={() => {
+                if (onSelectShop) {
+                  onSelectShop(shop.id);
+                } else {
+                  router.push(`/shop/${shop.id}`);
+                }
+              }}
+            >
+              <PawMarker isSelected={shop.id === selectedShopId} />
+            </AdvancedMarker>
+          ))}
         </Map>
       </APIProvider>
     </div>

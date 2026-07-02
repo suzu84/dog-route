@@ -5,7 +5,9 @@ import {
   faPhone,
   faLocationArrow,
   faCreditCard,
+  faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import LazyMapView from "@/components/map/LazyMapView";
 import type { Shop } from "@/lib/types";
 
@@ -70,11 +72,38 @@ export default function ShopInfoCard({ shop }: { shop: Shop }) {
         href={buildDirectionsUrl(shop)}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-full bg-brand text-white font-bold py-3 rounded-xl shadow-md text-sm flex items-center justify-center hover:bg-brand-dark transition"
+        className="w-full bg-brand text-white font-bold py-3 rounded-xl shadow-md text-sm flex items-center justify-center hover:bg-brand/90 transition"
       >
         <FontAwesomeIcon icon={faLocationArrow} className="mr-2" />
         Googleマップで経路案内
       </a>
+
+      {(shop.websiteUrl || shop.instagramUrl) && (
+        <div className="flex gap-2 mt-3">
+          {shop.websiteUrl && (
+            <a
+              href={shop.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 border border-gray-300 text-gray-700 font-bold py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 hover:bg-gray-50 transition"
+            >
+              <FontAwesomeIcon icon={faGlobe} />
+              公式HP
+            </a>
+          )}
+          {shop.instagramUrl && (
+            <a
+              href={shop.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 border border-gray-300 text-gray-700 font-bold py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 hover:bg-gray-50 transition"
+            >
+              <FontAwesomeIcon icon={faInstagram} className="text-pink-500" />
+              Instagram
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }

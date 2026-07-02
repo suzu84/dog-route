@@ -133,17 +133,9 @@ export default async function ShopDetailPage({ params }: ShopPageProps) {
               </div>
             )}
 
-            {/* モバイル: 簡易店舗情報 */}
-            <div className="lg:hidden bg-gray-50 p-4 rounded-xl mb-4 space-y-2 text-xs">
-              <p className="font-bold flex items-center">
-                <FontAwesomeIcon icon={faLocationDot} className="mr-2 text-brand" />
-                {shop.businessHours}
-              </p>
-              {shop.phone && (
-                <p className="font-bold flex items-center">
-                  <a href={`tel:${shop.phone}`}>{shop.phone}</a>
-                </p>
-              )}
+            {/* モバイル: 店舗情報（PCサイドバーと同内容） */}
+            <div className="lg:hidden mb-8">
+              <ShopInfoCard shop={shop} />
             </div>
 
             {relatedArticles.length > 0 && (

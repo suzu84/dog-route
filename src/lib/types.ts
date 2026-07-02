@@ -56,6 +56,8 @@ export interface Shop extends MicroCMSListContent {
   /** 検索結果カードに表示する最寄駅などの補足（要件にはないが表示用に任意で利用） */
   access?: string;
   rating?: number;
+  websiteUrl?: string;
+  instagramUrl?: string;
   /** トップページ「おすすめスポット」枠への掲載フラグ（将来、新着と分離する際に使用） */
   isRecommended?: boolean;
 }

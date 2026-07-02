@@ -27,13 +27,6 @@ export default function ShopCard({ shop, detailed = false }: ShopCardProps) {
           sizes="(max-width: 768px) 100vw, 400px"
         />
         <BookmarkButton shopId={shop.id} className="absolute top-3 right-3 z-10" />
-        {shop.tags && shop.tags.length > 0 && (
-          <div className="absolute bottom-2 right-2 flex gap-1 z-10">
-            <span className="bg-gray-900/80 text-white text-[10px] px-2 py-1 rounded font-bold">
-              {shop.tags[0]}
-            </span>
-          </div>
-        )}
       </div>
       <div className="p-4">
         <div className="flex justify-between items-start mb-1 gap-2">

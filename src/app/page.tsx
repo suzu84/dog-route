@@ -1,10 +1,23 @@
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
 import { getAllArticles, getAllShops } from "@/lib/microcms";
 import { SHOP_CATEGORIES } from "@/lib/types";
 import CategoryLink from "@/components/filters/CategoryLink";
 import TagsSection from "@/components/filters/TagsSection";
 import ShopCard from "@/components/shop/ShopCard";
 import ArticleCard from "@/components/article/ArticleCard";
+
+// お知らせを追加する場合はここに追記する（新しいものを先頭に）
+const NOTICES = [
+  {
+    date: "2026.07.02",
+    body: "板橋区を中心とした情報メディア「DOG ROUTE」を開設しました！店舗や施設の掲載依頼・HP制作依頼等は",
+    linkLabel: "お問い合わせ",
+    linkHref: "/contact",
+    bodySuffix: "よりご連絡ください。",
+  },
+];
 
 export default async function HomePage() {
   const [shops, articles] = await Promise.all([getAllShops(), getAllArticles()]);
@@ -29,6 +42,28 @@ export default async function HomePage() {
             <TagsSection />
           </div>
         </div>
+
+        {/* お知らせ */}
+        {NOTICES.length > 0 && (
+          <div className="mb-8 lg:mb-10 space-y-2">
+            {NOTICES.map((notice, i) => (
+              <div
+                key={i}
+                className="bg-brand-light border border-brand/20 rounded-xl px-4 py-3 flex items-start gap-3 text-sm text-gray-700"
+              >
+                <FontAwesomeIcon icon={faBullhorn} className="text-brand mt-0.5 shrink-0" />
+                <p>
+                  <span className="text-xs font-bold text-brand mr-2">{notice.date}</span>
+                  {notice.body}
+                  <Link href={notice.linkHref} className="underline font-bold hover:text-brand">
+                    {notice.linkLabel}
+                  </Link>
+                  {notice.bodySuffix}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
 
         <div className="flex flex-col lg:flex-row gap-10">
           {/* メインカラム: 新着スポット */}

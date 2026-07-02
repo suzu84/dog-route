@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faMapLocationDot, faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import BookmarkCountBadge from "@/components/shop/BookmarkCountBadge";
 
 const ITEMS = [
   { href: "/", label: "ホーム", icon: faHouse },
   { href: "/search", label: "マップ", icon: faMapLocationDot },
+  { href: "/articles", label: "特集記事", icon: faNewspaper },
 ];
 
 export default function BottomNav() {

@@ -97,8 +97,8 @@ export default async function ShopDetailPage({ params }: ShopPageProps) {
               {shop.access && `（${shop.access}）`}
             </p>
           </div>
-          <div className="hidden lg:flex gap-3 shrink-0">
-            <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-bold flex items-center hover:bg-gray-50 transition">
+          <div className="flex gap-3 shrink-0">
+            <button className="hidden lg:flex px-4 py-2 border border-gray-300 rounded-lg text-sm font-bold items-center hover:bg-gray-50 transition">
               <FontAwesomeIcon icon={faShareNodes} className="mr-2" />
               シェア
             </button>

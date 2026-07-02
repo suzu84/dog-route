@@ -62,16 +62,44 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* モバイル: BottomNavがあるため最小限 */}
-      <div className="lg:hidden px-5 py-6 flex flex-col items-center gap-4 text-xs">
-        <div className="flex gap-5">
-          {SUPPORT_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-white transition">
-              {link.label}
-            </Link>
-          ))}
+      {/* モバイル: PCと同内容・pb-20でBottomNav分を確保 */}
+      <div className="lg:hidden px-6 pt-10 pb-24">
+        <Link href="/" className="inline-flex items-center gap-2 text-white font-black text-lg mb-2">
+          <FontAwesomeIcon icon={faPaw} className="text-brand" />
+          DOG ROUTE
+        </Link>
+        <p className="text-sm text-gray-400 mb-8">板橋区の愛犬家のためのスポット情報メディア</p>
+
+        <div className="grid grid-cols-2 gap-8 mb-8">
+          <div>
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">メニュー</p>
+            <ul className="space-y-3">
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm text-gray-400 hover:text-white transition">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">サポート</p>
+            <ul className="space-y-3">
+              {SUPPORT_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm text-gray-400 hover:text-white transition">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <p>© {new Date().getFullYear()} DOG ROUTE</p>
+
+        <div className="border-t border-gray-800 pt-6 text-xs text-gray-500 text-center">
+          © {new Date().getFullYear()} DOG ROUTE. All rights reserved.
+        </div>
       </div>
     </footer>
   );

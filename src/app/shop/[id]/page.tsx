@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: ShopPageProps): Promise<Metad
 
   return {
     title: shop.name,
-    description: `${shop.name}（${shop.category.join("・")}・${shop.address}）の飼い主目線のリアルな情報。${shop.appeal.replace(/<[^>]+>/g, "").slice(0, 80)}`,
+    description: `${shop.name}（${shop.category.join("・")}・${shop.address}）の飼い主目線のリアルな情報。${(shop.appeal ?? "").replace(/<[^>]+>/g, "").slice(0, 80)}`,
   };
 }
 
@@ -109,16 +109,20 @@ export default async function ShopDetailPage({ params }: ShopPageProps) {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* 左カラム */}
           <div className="flex-1">
-            <h2 className="text-lg lg:text-xl font-bold text-gray-900 mb-3 lg:mb-4">
-              お店の魅力
-            </h2>
-            <div
-              className="prose prose-sm lg:prose-base max-w-none text-gray-700 mb-8 lg:mb-10"
-              dangerouslySetInnerHTML={{ __html: shop.appeal }}
-            />
+            {shop.appeal && (
+              <div className="mb-8 lg:mb-10">
+                <h2 className="text-lg lg:text-xl font-bold text-gray-900 mb-3 lg:mb-4">
+                  お店の魅力
+                </h2>
+                <div
+                  className="prose prose-sm lg:prose-base max-w-none text-gray-700"
+                  dangerouslySetInnerHTML={{ __html: shop.appeal }}
+                ></div>
+              </div>
+            )}
 
             <div className="mb-8 lg:mb-10">
-              <RealReportBox html={shop.rules} />
+              <RealReportBox html={shop.rules ?? ""} />
             </div>
 
             {shop.priceMenu && (
@@ -129,7 +133,7 @@ export default async function ShopDetailPage({ params }: ShopPageProps) {
                 <div
                   className="bg-gray-50 p-4 rounded-xl prose prose-sm max-w-none"
                   dangerouslySetInnerHTML={{ __html: shop.priceMenu }}
-                />
+                ></div>
               </div>
             )}
 

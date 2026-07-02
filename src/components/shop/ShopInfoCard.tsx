@@ -26,12 +26,12 @@ export default function ShopInfoCard({ shop }: { shop: Shop }) {
       </h3>
 
       <div className="space-y-4 text-sm text-gray-700 mb-6">
-        <div className="flex items-start">
-          <FontAwesomeIcon icon={faClock} className="w-6 text-gray-400 mt-0.5 text-center" />
+        <div className="flex items-start gap-3">
+          <FontAwesomeIcon icon={faClock} className="w-4 text-gray-400 mt-0.5 shrink-0" />
           <p className="font-bold text-gray-900">{shop.businessHours}</p>
         </div>
-        <div className="flex items-start">
-          <FontAwesomeIcon icon={faPhone} className="w-6 text-gray-400 mt-0.5 text-center" />
+        <div className="flex items-start gap-3">
+          <FontAwesomeIcon icon={faPhone} className="w-4 text-gray-400 mt-0.5 shrink-0" />
           {shop.phone ? (
             <a href={`tel:${shop.phone}`} className="hover:text-brand">
               {shop.phone}
@@ -41,20 +41,14 @@ export default function ShopInfoCard({ shop }: { shop: Shop }) {
           )}
         </div>
         {shop.tags?.includes("駐車場あり") && (
-          <div className="flex items-start">
-            <FontAwesomeIcon
-              icon={faSquareParking}
-              className="w-6 text-gray-400 mt-0.5 text-center"
-            />
+          <div className="flex items-start gap-3">
+            <FontAwesomeIcon icon={faSquareParking} className="w-4 text-gray-400 mt-0.5 shrink-0" />
             <p>駐車場あり</p>
           </div>
         )}
         {shop.payment && (
-          <div className="flex items-start">
-            <FontAwesomeIcon
-              icon={faCreditCard}
-              className="w-6 text-gray-400 mt-0.5 text-center"
-            />
+          <div className="flex items-start gap-3">
+            <FontAwesomeIcon icon={faCreditCard} className="w-4 text-gray-400 mt-0.5 shrink-0" />
             <p>{shop.payment}</p>
           </div>
         )}

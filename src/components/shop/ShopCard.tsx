@@ -53,7 +53,7 @@ export default function ShopCard({ shop, detailed = false }: ShopCardProps) {
         )}
         {shop.tags && (
           <div className="flex gap-1 flex-wrap">
-            {shop.tags.slice(0, 2).map((tag) => (
+            {shop.tags.map((tag) => (
               <TagBadge key={tag} tag={tag} />
             ))}
           </div>

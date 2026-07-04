@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import BookmarkButton from "./BookmarkButton";
 import TagBadge from "./TagBadge";
+import { CATEGORY_ICONS } from "@/lib/constants";
 import type { Shop } from "@/lib/types";
 
 interface ShopCardProps {
@@ -29,6 +30,14 @@ export default function ShopCard({ shop, detailed = false }: ShopCardProps) {
         <BookmarkButton shopId={shop.id} className="absolute top-3 right-3 z-10" />
       </div>
       <div className="p-4">
+        <div className="flex flex-wrap gap-1 mb-1.5">
+          {shop.category.map((cat) => (
+            <span key={cat} className="inline-flex items-center gap-1 bg-brand text-white text-xs font-bold px-2 py-0.5 rounded">
+              {CATEGORY_ICONS[cat] && <FontAwesomeIcon icon={CATEGORY_ICONS[cat]} className="text-[10px]" />}
+              {cat}
+            </span>
+          ))}
+        </div>
         <div className="flex justify-between items-start mb-1 gap-2">
           <h3 className="text-sm lg:text-base font-bold text-gray-800">{shop.name}</h3>
           {shop.rating && (

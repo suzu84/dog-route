@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { CATEGORY_ICONS } from "@/lib/constants";
 import { getAllShops, getArticlesByShopId, getShop } from "@/lib/microcms";
 import TagBadge from "@/components/shop/TagBadge";
 import BookmarkButton from "@/components/shop/BookmarkButton";
@@ -84,6 +85,17 @@ export default async function ShopDetailPage({ params }: ShopPageProps) {
         {/* タイトルセクション */}
         <div className="flex justify-between items-end mb-6 gap-4">
           <div>
+            <div className="flex flex-wrap gap-1.5 mb-2">
+              {shop.category.map((cat) => (
+                <span
+                  key={cat}
+                  className="inline-flex items-center gap-1.5 bg-brand text-white text-xs font-bold px-2.5 py-1 rounded"
+                >
+                  {CATEGORY_ICONS[cat] && <FontAwesomeIcon icon={CATEGORY_ICONS[cat]} />}
+                  {cat}
+                </span>
+              ))}
+            </div>
             <div className="flex flex-wrap gap-1.5 mb-1.5">
               {shop.tags?.map((tag) => (
                 <TagBadge key={tag} tag={tag} size="md" />

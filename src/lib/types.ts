@@ -58,6 +58,7 @@ export interface Shop extends MicroCMSListContent {
   rating?: number;
   websiteUrl?: string;
   instagramUrl?: string;
+  instagramPosts?: Array<{ fieldId: string; instagramPosts: string }>;
   /** トップページ「おすすめスポット」枠への掲載フラグ（将来、新着と分離する際に使用） */
   isRecommended?: boolean;
 }

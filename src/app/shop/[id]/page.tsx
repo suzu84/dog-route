@@ -2,11 +2,12 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { getAllShops, getArticlesByShopId, getShop } from "@/lib/microcms";
 import TagBadge from "@/components/shop/TagBadge";
 import BookmarkButton from "@/components/shop/BookmarkButton";
 import RealReportBox from "@/components/shop/RealReportBox";
+import InstagramSlider from "@/components/shop/InstagramSlider";
 import ShopInfoCard from "@/components/shop/ShopInfoCard";
 import ShopDetailMobileHeader from "@/components/shop/ShopDetailMobileHeader";
 import ShopDetailMobileCta from "@/components/shop/ShopDetailMobileCta";
@@ -83,7 +84,7 @@ export default async function ShopDetailPage({ params }: ShopPageProps) {
         {/* タイトルセクション */}
         <div className="flex justify-between items-end mb-6 gap-4">
           <div>
-            <div className="flex flex-wrap gap-1.5 mb-3">
+            <div className="flex flex-wrap gap-1.5 mb-1.5">
               {shop.tags?.map((tag) => (
                 <TagBadge key={tag} tag={tag} size="md" />
               ))}
@@ -98,10 +99,6 @@ export default async function ShopDetailPage({ params }: ShopPageProps) {
             </p>
           </div>
           <div className="flex gap-3 shrink-0">
-            <button className="hidden lg:flex px-4 py-2 border border-gray-300 rounded-lg text-sm font-bold items-center hover:bg-gray-50 transition">
-              <FontAwesomeIcon icon={faShareNodes} className="mr-2" />
-              シェア
-            </button>
             <BookmarkButton shopId={shop.id} variant="button" />
           </div>
         </div>
@@ -142,6 +139,12 @@ export default async function ShopDetailPage({ params }: ShopPageProps) {
               <ShopInfoCard shop={shop} />
             </div>
 
+            {shop.instagramPosts && shop.instagramPosts.length > 0 && (
+              <div className="mb-8 lg:mb-10">
+                <InstagramSlider posts={shop.instagramPosts} />
+              </div>
+            )}
+
             {relatedArticles.length > 0 && (
               <div>
                 <h2 className="text-lg lg:text-xl font-bold text-gray-900 mb-4">
@@ -163,6 +166,7 @@ export default async function ShopDetailPage({ params }: ShopPageProps) {
             </div>
           </div>
         </div>
+
       </div>
 
       <ShopDetailMobileCta shop={shop} />

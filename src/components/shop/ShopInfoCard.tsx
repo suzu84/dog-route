@@ -28,7 +28,7 @@ export default function ShopInfoCard({ shop }: { shop: Shop }) {
       <div className="space-y-4 text-sm text-gray-700 mb-6">
         <div className="flex items-start gap-3">
           <FontAwesomeIcon icon={faClock} className="w-4 text-gray-400 mt-0.5 shrink-0" />
-          <p className="font-bold text-gray-900">{shop.businessHours}</p>
+          <p className="font-bold text-gray-900 whitespace-pre-wrap">{shop.businessHours}</p>
         </div>
         <div className="flex items-start gap-3">
           <FontAwesomeIcon icon={faPhone} className="w-4 text-gray-400 mt-0.5 shrink-0" />

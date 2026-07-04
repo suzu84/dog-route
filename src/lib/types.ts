@@ -1,10 +1,10 @@
-export type ShopCategory = "カフェ・レストラン" | "トリミングサロン" | "ドッグラン" | "病院";
+export type ShopCategory = "カフェ・レストラン" | "トリミングサロン" | "ドッグラン" | "動物病院";
 
 export const SHOP_CATEGORIES: ShopCategory[] = [
   "カフェ・レストラン",
   "トリミングサロン",
   "ドッグラン",
-  "病院",
+  "動物病院",
 ];
 
 /** microCMS側でタグを追加した場合、このファイルの変更は不要。

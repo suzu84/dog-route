@@ -23,7 +23,7 @@ export const CATEGORY_ICONS: Record<ShopCategory, IconDefinition> = {
   "カフェ・レストラン": faMugHot,
   トリミングサロン: faScissors,
   ドッグラン: faTree,
-  病院: faHospital,
+  動物病院: faHospital,
 };
 
 /** タグ名→アイコンのマッピング。CMS側で新しいタグを追加した場合、

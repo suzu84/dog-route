@@ -127,7 +127,7 @@ export const MOCK_SHOPS: Shop[] = [
     createdAt: "2026-01-22T00:00:00.000Z",
     updatedAt: "2026-01-22T00:00:00.000Z",
     name: "板橋どうぶつ病院",
-    category: ["病院"],
+    category: ["動物病院"],
     mainImage: img("Animal Hospital"),
     tags: ["駐車場あり", "ネット予約可"],
     appeal: "夜間救急対応も行う地域密着の動物病院。初診の方も相談しやすい雰囲気です。",

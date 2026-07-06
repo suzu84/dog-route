@@ -71,15 +71,25 @@ export default async function ShopDetailPage({ params, searchParams }: ShopPageP
 
       <ShopDetailMobileHeader shopId={shop.id} />
 
-      {/* ギャラリー */}
-      <div className="relative w-full h-64 lg:h-[400px] lg:max-w-6xl lg:mx-auto lg:mt-8 lg:rounded-2xl overflow-hidden">
+      {/* ギャラリー: SPは一覧カードと同じ縦横比(4:3)、PCは横長 */}
+      <div className="relative w-full aspect-[4/3] lg:hidden overflow-hidden">
+        <Image
+          src={(shop.mainImage_sp ?? shop.mainImage).url}
+          alt={shop.name}
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+      </div>
+      <div className="relative w-full hidden lg:block lg:h-[400px] lg:max-w-6xl lg:mx-auto lg:mt-8 lg:rounded-2xl overflow-hidden">
         <Image
           src={shop.mainImage.url}
           alt={shop.name}
           fill
           priority
           className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 1024px"
+          sizes="1024px"
         />
       </div>
 

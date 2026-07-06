@@ -89,18 +89,26 @@ export default async function HomePage() {
                 すべて見る
               </Link>
             </h2>
-            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 lg:hidden">
-              {featuredArticles.map((article) => (
-                <div key={article.id} className="min-w-[220px]">
-                  <ArticleCard article={article} />
+            {featuredArticles.length === 0 ? (
+              <p className="text-sm text-gray-400 py-8 text-center">
+                現在、特集記事はありません
+              </p>
+            ) : (
+              <>
+                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 lg:hidden">
+                  {featuredArticles.map((article) => (
+                    <div key={article.id} className="min-w-[220px]">
+                      <ArticleCard article={article} />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="hidden lg:flex lg:flex-col gap-5">
-              {featuredArticles.map((article) => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
-            </div>
+                <div className="hidden lg:flex lg:flex-col gap-5">
+                  {featuredArticles.map((article) => (
+                    <ArticleCard key={article.id} article={article} />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

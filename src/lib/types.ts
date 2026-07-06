@@ -42,6 +42,8 @@ export interface Shop extends MicroCMSListContent {
   /** microCMS側で複数選択可のセレクトフィールドのため配列 */
   category: ShopCategory[];
   mainImage: MicroCMSImage;
+  /** スマホ表示用のメイン画像（任意）。未設定時は mainImage を使用 */
+  mainImage_sp?: MicroCMSImage;
   tags?: ShopTag[];
   appeal: string;
   rules: string;

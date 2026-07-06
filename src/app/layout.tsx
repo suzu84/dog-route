@@ -26,7 +26,9 @@ export const metadata: Metadata = {
   },
   description:
     "板橋区周辺で愛犬と暮らす飼い主のための、カート入店OK・大型犬OKなどリアルな条件で探せる店舗検索メディア。",
-  robots: { index: true, follow: true },
+  robots: process.env.VERCEL_ENV === "preview"
+    ? { index: false, follow: false }
+    : { index: true, follow: true },
 };
 
 export default function RootLayout({

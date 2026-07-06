@@ -19,7 +19,7 @@ export default function ShopCard({ shop, detailed = false }: ShopCardProps) {
       href={`/shop/${shop.id}`}
       className="block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden group"
     >
-      <div className="relative w-full aspect-[4/3] overflow-hidden">
+      <div className={`relative w-full overflow-hidden ${detailed ? "h-48" : "h-40"}`}>
         <Image
           src={shop.mainImage.url}
           alt={shop.name}

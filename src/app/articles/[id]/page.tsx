@@ -9,6 +9,7 @@ import ArticleDetailMobileHeader from "@/components/article/ArticleDetailMobileH
 
 interface ArticlePageProps {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ draftKey?: string }>;
 }
 
 export async function generateStaticParams() {
@@ -35,9 +36,10 @@ function formatDate(dateString?: string) {
   ).padStart(2, "0")}`;
 }
 
-export default async function ArticleDetailPage({ params }: ArticlePageProps) {
+export default async function ArticleDetailPage({ params, searchParams }: ArticlePageProps) {
   const { id } = await params;
-  const article = await getArticle(id);
+  const { draftKey } = await searchParams;
+  const article = await getArticle(id, draftKey);
   if (!article) notFound();
 
   const allArticles = await getAllArticles();

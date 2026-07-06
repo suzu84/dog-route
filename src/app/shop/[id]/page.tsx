@@ -16,6 +16,7 @@ import ArticleCard from "@/components/article/ArticleCard";
 
 interface ShopPageProps {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ draftKey?: string }>;
 }
 
 export async function generateStaticParams() {
@@ -34,9 +35,10 @@ export async function generateMetadata({ params }: ShopPageProps): Promise<Metad
   };
 }
 
-export default async function ShopDetailPage({ params }: ShopPageProps) {
+export default async function ShopDetailPage({ params, searchParams }: ShopPageProps) {
   const { id } = await params;
-  const shop = await getShop(id);
+  const { draftKey } = await searchParams;
+  const shop = await getShop(id, draftKey);
   if (!shop) notFound();
 
   const relatedArticles = await getArticlesByShopId(id);

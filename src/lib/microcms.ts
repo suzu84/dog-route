@@ -28,13 +28,14 @@ export async function getAllShops(): Promise<Shop[]> {
   return (res as MicroCMSListResponse<Shop>).contents;
 }
 
-export async function getShop(id: string): Promise<Shop | undefined> {
+export async function getShop(id: string, draftKey?: string): Promise<Shop | undefined> {
   if (!client) return MOCK_SHOPS.find((shop) => shop.id === id);
 
   try {
     return await client.getListDetail<Shop>({
       endpoint: SHOP_ENDPOINT,
       contentId: id,
+      queries: draftKey ? { draftKey } : {},
     });
   } catch {
     return undefined;
@@ -51,13 +52,14 @@ export async function getAllArticles(): Promise<Article[]> {
   return (res as MicroCMSListResponse<Article>).contents;
 }
 
-export async function getArticle(id: string): Promise<Article | undefined> {
+export async function getArticle(id: string, draftKey?: string): Promise<Article | undefined> {
   if (!client) return MOCK_ARTICLES.find((article) => article.id === id);
 
   try {
     return await client.getListDetail<Article>({
       endpoint: ARTICLE_ENDPOINT,
       contentId: id,
+      queries: draftKey ? { draftKey } : {},
     });
   } catch {
     return undefined;

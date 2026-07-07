@@ -41,7 +41,17 @@ export default function RootLayout({
     <html
       lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* TOPイントロ：表示済みセッションでは描画前に無効化しちらつきを防ぐ */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('dogroute_intro_shown'))document.documentElement.classList.add('intro-seen')}catch(e){}",
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-gray-50">
         <noscript>
           <iframe

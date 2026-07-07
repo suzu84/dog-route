@@ -7,6 +7,7 @@ import CategoryLink from "@/components/filters/CategoryLink";
 import TagsSection from "@/components/filters/TagsSection";
 import ShopCard from "@/components/shop/ShopCard";
 import ArticleCard from "@/components/article/ArticleCard";
+import IntroAnimation from "@/components/intro/IntroAnimation";
 
 // お知らせを追加する場合はここに追記する（新しいものを先頭に）
 const NOTICES = [
@@ -26,6 +27,7 @@ export default async function HomePage() {
 
   return (
     <div className="bg-gray-50">
+      <IntroAnimation />
       <div className="max-w-6xl mx-auto px-5 lg:px-8 pt-6 lg:pt-10 pb-10">
         {/* 検索パネル */}
         <div className="bg-white p-5 lg:p-8 rounded-2xl lg:rounded-3xl shadow-sm border border-gray-100 mb-8 lg:mb-12">

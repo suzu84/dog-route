@@ -12,6 +12,7 @@ import {
   faMoneyBillWave,
   faCreditCard,
   faCalendarCheck,
+  faBed,
 } from "@fortawesome/free-solid-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import type { ShopCategory, ShopTag } from "./types";
@@ -24,6 +25,7 @@ export const CATEGORY_ICONS: Record<ShopCategory, IconDefinition> = {
   トリミングサロン: faScissors,
   ドッグラン: faTree,
   動物病院: faHospital,
+  ペットホテル: faBed,
 };
 
 /** タグ名→アイコンのマッピング。CMS側で新しいタグを追加した場合、

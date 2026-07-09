@@ -62,15 +62,17 @@ export default function ShopInfoCard({ shop }: { shop: Shop }) {
         <span>{shop.address}</span>
       </p>
 
-      <a
-        href={buildDirectionsUrl(shop)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="w-full bg-brand text-white font-bold py-3 rounded-xl shadow-md text-sm flex items-center justify-center hover:bg-brand/90 transition"
-      >
-        <FontAwesomeIcon icon={faLocationArrow} className="mr-2" />
-        Googleマップで経路案内
-      </a>
+      {shop.placeId && (
+        <a
+          href={buildDirectionsUrl(shop)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full bg-brand text-white font-bold py-3 rounded-xl shadow-md text-sm flex items-center justify-center hover:bg-brand/90 transition"
+        >
+          <FontAwesomeIcon icon={faLocationArrow} className="mr-2" />
+          Googleマップで経路案内
+        </a>
+      )}
 
       {(shop.websiteUrl || shop.instagramUrl) && (
         <div className="flex gap-2 mt-3">

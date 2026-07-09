@@ -38,15 +38,17 @@ export default function ShopDetailMobileCta({ shop }: { shop: Shop }) {
             Insta
           </a>
         )}
-        <a
-          href={buildDirectionsUrl(shop)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`bg-brand text-white font-bold py-3 rounded-xl shadow-md text-sm flex items-center justify-center gap-2 ${hasLinks ? "flex-1" : "w-full"}`}
-        >
-          <FontAwesomeIcon icon={faLocationArrow} />
-          経路案内
-        </a>
+        {shop.placeId && (
+          <a
+            href={buildDirectionsUrl(shop)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`bg-brand text-white font-bold py-3 rounded-xl shadow-md text-sm flex items-center justify-center gap-2 ${hasLinks ? "flex-1" : "w-full"}`}
+          >
+            <FontAwesomeIcon icon={faLocationArrow} />
+            経路案内
+          </a>
+        )}
       </div>
     </div>
   );

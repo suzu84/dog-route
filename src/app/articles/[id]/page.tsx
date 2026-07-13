@@ -22,9 +22,22 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const article = await getArticle(id);
   if (!article) return {};
 
+  const ogImage = { url: article.mainImage.url, ...(article.mainImage.width ? { width: article.mainImage.width } : {}), ...(article.mainImage.height ? { height: article.mainImage.height } : {}) };
+
   return {
     title: article.title,
     description: article.title,
+    openGraph: {
+      title: article.title,
+      description: article.title,
+      images: [ogImage],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      images: [article.mainImage.url],
+    },
   };
 }
 

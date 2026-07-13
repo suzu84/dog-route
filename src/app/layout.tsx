@@ -20,16 +20,30 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://dogroute.jp";
+const DEFAULT_DESCRIPTION =
+  "板橋区周辺で愛犬と暮らす飼い主のための、カート入店OK・大型犬OKなどリアルな条件で探せる店舗検索メディア。";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "DOG ROUTE | 板橋区の愛犬家のためのお出かけ・生活インフラ",
     template: "%s | DOG ROUTE",
   },
-  description:
-    "板橋区周辺で愛犬と暮らす飼い主のための、カート入店OK・大型犬OKなどリアルな条件で探せる店舗検索メディア。",
+  description: DEFAULT_DESCRIPTION,
   robots: process.env.VERCEL_ENV === "preview"
     ? { index: false, follow: false }
     : { index: true, follow: true },
+  openGraph: {
+    siteName: "DOG ROUTE",
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "DOG ROUTE" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
+  },
 };
 
 export default function RootLayout({

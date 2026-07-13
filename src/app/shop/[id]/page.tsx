@@ -29,9 +29,24 @@ export async function generateMetadata({ params }: ShopPageProps): Promise<Metad
   const shop = await getShop(id);
   if (!shop) return {};
 
+  const description = `${shop.name}（${shop.category.join("・")}・${shop.address}）の飼い主目線のリアルな情報。${(shop.appeal ?? "").replace(/<[^>]+>/g, "").slice(0, 80)}`;
+  const ogImage = { url: shop.mainImage.url, ...(shop.mainImage.width ? { width: shop.mainImage.width } : {}), ...(shop.mainImage.height ? { height: shop.mainImage.height } : {}) };
+
   return {
     title: shop.name,
-    description: `${shop.name}（${shop.category.join("・")}・${shop.address}）の飼い主目線のリアルな情報。${(shop.appeal ?? "").replace(/<[^>]+>/g, "").slice(0, 80)}`,
+    description,
+    openGraph: {
+      title: shop.name,
+      description,
+      images: [ogImage],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: shop.name,
+      description,
+      images: [shop.mainImage.url],
+    },
   };
 }
 

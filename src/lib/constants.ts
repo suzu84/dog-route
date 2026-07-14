@@ -35,8 +35,7 @@ export const TAG_ICONS: Partial<Record<string, IconDefinition>> = {
   大型犬OK: faDog,
   屋内可: faHouse,
   小型犬専用エリアあり: faDog,
-  現金のみ: faMoneyBillWave,
-  現金以外可: faCreditCard,
+  キャッシュレス決済可: faCreditCard,
   ネット予約可: faCalendarCheck,
   わんこメニューあり: faBone,
 };

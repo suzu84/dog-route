@@ -22,22 +22,17 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const article = await getArticle(id);
   if (!article) return {};
 
-  const ogImage = { url: article.mainImage.url, ...(article.mainImage.width ? { width: article.mainImage.width } : {}), ...(article.mainImage.height ? { height: article.mainImage.height } : {}) };
+  const ogImage = article.mainImage
+    ? { url: article.mainImage.url, ...(article.mainImage.width ? { width: article.mainImage.width } : {}), ...(article.mainImage.height ? { height: article.mainImage.height } : {}) }
+    : undefined;
 
   return {
     title: article.title,
     description: article.title,
-    openGraph: {
-      title: article.title,
-      description: article.title,
-      images: [ogImage],
-      type: "article",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: article.title,
-      images: [article.mainImage.url],
-    },
+    ...(ogImage && {
+      openGraph: { title: article.title, description: article.title, images: [ogImage], type: "article" as const },
+      twitter: { card: "summary_large_image" as const, title: article.title, images: [ogImage.url] },
+    }),
   };
 }
 
@@ -65,7 +60,7 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
-    image: article.mainImage.url,
+    image: article.mainImage?.url,
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
   };
@@ -92,16 +87,18 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
           <h1 className="text-xl lg:text-4xl font-bold text-gray-900 leading-snug lg:leading-tight mb-6 lg:mb-8">
             {article.title}
           </h1>
-          <div className="relative w-full h-56 lg:h-[450px] rounded-2xl overflow-hidden shadow-md">
-            <Image
-              src={article.mainImage.url}
-              alt={article.title}
-              fill
-              priority
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 800px"
-            />
-          </div>
+          {article.mainImage?.url && (
+            <div className="relative w-full h-56 lg:h-[450px] rounded-2xl overflow-hidden shadow-md">
+              <Image
+                src={article.mainImage.url}
+                alt={article.title}
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 800px"
+              />
+            </div>
+          )}
         </div>
       </div>
 

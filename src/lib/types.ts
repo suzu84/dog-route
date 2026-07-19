@@ -87,7 +87,7 @@ export type ArticleContentBlock = ArticleTextBlock | ArticleShopBlock;
 
 export interface Article extends MicroCMSListContent {
   title: string;
-  mainImage: MicroCMSImage;
+  mainImage?: MicroCMSImage;
   category: ArticleCategory;
   content: ArticleContentBlock[];
 }

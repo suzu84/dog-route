@@ -12,13 +12,6 @@ import IntroAnimation from "@/components/intro/IntroAnimation";
 // お知らせを追加する場合はここに追記する（新しいものを先頭に）
 const NOTICES = [
   {
-    date: "2026.07.19",
-    body: "店舗の掲載依頼や掲載内容の変更やご要望は",
-    linkLabel: "お問い合わせ",
-    linkHref: "/contact?type=listing",
-    bodySuffix: "よりお願いします。",
-  },
-  {
     date: "2026.07.02",
     body: "板橋区を中心とした情報メディア「DOG ROUTE」を開設しました！店舗や施設の掲載依頼・HP制作依頼等は",
     linkLabel: "お問い合わせ",

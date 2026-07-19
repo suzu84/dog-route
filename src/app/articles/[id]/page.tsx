@@ -117,7 +117,11 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
                   </h3>
                   <ul className="text-sm text-gray-600 space-y-3">
                     {headings.map((heading, index) => (
-                      <li key={index}>{heading}</li>
+                      <li key={index}>
+                        <a href={`#${heading.id}`} className="hover:text-brand transition-colors leading-snug block">
+                          {heading.text}
+                        </a>
+                      </li>
                     ))}
                   </ul>
                 </div>

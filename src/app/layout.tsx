@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 
 const SITE_URL = "https://dogroute.jp";
 const DEFAULT_DESCRIPTION =
-  "ドッグルート（DOG ROUTE）は板橋区周辺で愛犬と暮らす飼い主のための店舗検索メディア。カート入店OK・大型犬OKなどリアルな条件で探せます。";
+  "DOG ROUTE（ドッグルート）は板橋区周辺で愛犬と暮らす飼い主のための店舗検索メディア。カート入店OK・大型犬OKなどリアルな条件で探せます。";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

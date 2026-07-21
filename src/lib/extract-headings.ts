@@ -25,7 +25,9 @@ export function processContent(content: ArticleContentBlock[]): {
         const id = `heading-${counter++}`;
         const text = inner.replace(/<[^>]+>/g, "").trim();
         headings.push({ text, id });
-        return `<h2${attrs} id="${id}">${inner}</h2>`;
+        // microCMSが既存のidを付与している場合は上書きする
+        const cleanAttrs = attrs.replace(/\s*id="[^"]*"/, "");
+        return `<h2${cleanAttrs} id="${id}">${inner}</h2>`;
       }
     );
 

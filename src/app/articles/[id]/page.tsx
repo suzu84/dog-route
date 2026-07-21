@@ -2,7 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllArticles, getArticle } from "@/lib/microcms";
-import { extractHeadings } from "@/lib/extract-headings";
+import { processContent } from "@/lib/extract-headings";
 import ArticleContent from "@/components/article/ArticleContent";
 import ArticleCard from "@/components/article/ArticleCard";
 import ArticleDetailMobileHeader from "@/components/article/ArticleDetailMobileHeader";
@@ -54,7 +54,7 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
   const relatedArticles = allArticles
     .filter((a) => a.id !== article.id && a.category === article.category)
     .slice(0, 3);
-  const headings = extractHeadings(article.content);
+  const { headings, blocks: processedBlocks } = processContent(article.content);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -104,7 +104,7 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
 
       <div className="max-w-5xl mx-auto px-5 lg:px-8 py-8 lg:py-12 flex flex-col lg:flex-row gap-12">
         <div className="flex-1 lg:max-w-[700px]">
-          <ArticleContent content={article.content} />
+          <ArticleContent content={processedBlocks} />
         </div>
 
         {(headings.length > 0 || relatedArticles.length > 0) && (

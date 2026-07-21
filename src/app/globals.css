@@ -108,3 +108,8 @@ body {
     display: none;
   }
 }
+
+/* 記事内の見出しアンカー: 固定ヘッダー分スクロール位置をずらす */
+.prose h2[id] {
+  scroll-margin-top: 5rem;
+}

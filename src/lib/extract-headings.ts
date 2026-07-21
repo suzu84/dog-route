@@ -5,19 +5,32 @@ export interface HeadingItem {
   id: string;
 }
 
-/** 記事本文のテキストブロックからh2見出しを抜き出し、サイドバー目次に使う */
-export function extractHeadings(content: ArticleContentBlock[]): HeadingItem[] {
+/**
+ * コンテンツを1回だけ走査し、h2にIDを付与した blocks と headings リストを同時に生成する。
+ * extractHeadings と ArticleContent でカウンターを別々に持つとズレるため、ここで一元管理する。
+ */
+export function processContent(content: ArticleContentBlock[]): {
+  headings: HeadingItem[];
+  blocks: ArticleContentBlock[];
+} {
   const headings: HeadingItem[] = [];
   let counter = 0;
-  for (const block of content) {
-    if (block.fieldId !== "text") continue;
-    const matches = block.text.matchAll(/<h2[^>]*>(.*?)<\/h2>/g);
-    for (const match of matches) {
-      headings.push({
-        text: match[1].replace(/<[^>]+>/g, ""),
-        id: `heading-${counter++}`,
-      });
-    }
-  }
-  return headings;
+
+  const blocks = content.map((block) => {
+    if (block.fieldId !== "text") return block;
+
+    const processedText = block.text.replace(
+      /<h2([^>]*)>([\s\S]*?)<\/h2>/g,
+      (_match, attrs: string, inner: string) => {
+        const id = `heading-${counter++}`;
+        const text = inner.replace(/<[^>]+>/g, "").trim();
+        headings.push({ text, id });
+        return `<h2${attrs} id="${id}">${inner}</h2>`;
+      }
+    );
+
+    return { ...block, text: processedText };
+  });
+
+  return { headings, blocks };
 }

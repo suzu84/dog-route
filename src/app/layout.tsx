@@ -22,13 +22,13 @@ const geistMono = Geist_Mono({
 
 const SITE_URL = "https://dogroute.jp";
 const DEFAULT_DESCRIPTION =
-  "板橋区周辺で愛犬と暮らす飼い主のための、カート入店OK・大型犬OKなどリアルな条件で探せる店舗検索メディア。";
+  "ドッグルート（DOG ROUTE）は板橋区周辺で愛犬と暮らす飼い主のための店舗検索メディア。カート入店OK・大型犬OKなどリアルな条件で探せます。";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "DOG ROUTE | 板橋区の愛犬家のためのお出かけ・生活インフラ",
-    template: "%s | DOG ROUTE",
+    default: "DOG ROUTE（ドッグルート）| 板橋区の愛犬家のためのお出かけ・生活インフラ",
+    template: "%s | DOG ROUTE（ドッグルート）",
   },
   description: DEFAULT_DESCRIPTION,
   robots: process.env.VERCEL_ENV === "preview"

@@ -52,4 +52,4 @@ export const AIRCON_ICON = faFan;
 export const BOOKMARK_STORAGE_KEY = "dog_route_bookmarks";
 
 /** 検索結果・記事一覧の1ページあたりの表示件数 */
-export const PAGE_SIZE = 20;
+export const PAGE_SIZE = 12;

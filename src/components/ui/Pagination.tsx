@@ -5,55 +5,78 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  /** ページ番号からリンク先URLを生成する */
   getHref: (page: number) => string;
 }
+
+function getPageNumbers(current: number, total: number): (number | "...")[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+
+  const pages: (number | "...")[] = [1];
+
+  if (current > 3) pages.push("...");
+
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  for (let i = start; i <= end; i++) pages.push(i);
+
+  if (current < total - 2) pages.push("...");
+
+  pages.push(total);
+  return pages;
+}
+
+const circleBase = "w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border transition";
 
 export default function Pagination({ currentPage, totalPages, getHref }: PaginationProps) {
   if (totalPages <= 1) return null;
 
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pageNumbers = getPageNumbers(currentPage, totalPages);
 
   return (
-    <nav className="flex justify-center items-center gap-1.5 mt-8 lg:mt-12">
-      <Link
-        href={getHref(Math.max(1, currentPage - 1))}
-        aria-disabled={currentPage === 1}
-        className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold border ${
-          currentPage === 1
-            ? "border-gray-200 text-gray-300 pointer-events-none"
-            : "border-gray-300 text-gray-600 hover:bg-gray-50"
-        }`}
-      >
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </Link>
-
-      {pages.map((page) => (
-        <Link
-          key={page}
-          href={getHref(page)}
-          aria-current={page === currentPage}
-          className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold border ${
-            page === currentPage
-              ? "bg-brand text-white border-brand"
-              : "border-gray-300 text-gray-600 hover:bg-gray-50"
-          }`}
-        >
-          {page}
+    <nav className="flex justify-center items-center gap-2 mt-8 lg:mt-12">
+      {/* 前へ */}
+      {currentPage === 1 ? (
+        <span className={`${circleBase} border-gray-200 text-gray-300 cursor-default`}>
+          <FontAwesomeIcon icon={faChevronLeft} className="text-xs" />
+        </span>
+      ) : (
+        <Link href={getHref(currentPage - 1)} className={`${circleBase} border-gray-300 text-gray-500 hover:bg-gray-50`}>
+          <FontAwesomeIcon icon={faChevronLeft} className="text-xs" />
         </Link>
-      ))}
+      )}
 
-      <Link
-        href={getHref(Math.min(totalPages, currentPage + 1))}
-        aria-disabled={currentPage === totalPages}
-        className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold border ${
-          currentPage === totalPages
-            ? "border-gray-200 text-gray-300 pointer-events-none"
-            : "border-gray-300 text-gray-600 hover:bg-gray-50"
-        }`}
-      >
-        <FontAwesomeIcon icon={faChevronRight} />
-      </Link>
+      {/* ページ番号 */}
+      {pageNumbers.map((page, i) =>
+        page === "..." ? (
+          <span key={`ellipsis-${i}`} className="w-10 h-10 flex items-center justify-center text-sm text-gray-400">
+            ...
+          </span>
+        ) : (
+          <Link
+            key={page}
+            href={getHref(page)}
+            aria-current={page === currentPage ? "page" : undefined}
+            className={`${circleBase} ${
+              page === currentPage
+                ? "bg-brand border-brand text-white"
+                : "border-gray-300 text-gray-600 hover:bg-gray-50"
+            }`}
+          >
+            {page}
+          </Link>
+        )
+      )}
+
+      {/* 次へ */}
+      {currentPage === totalPages ? (
+        <span className={`${circleBase} border-gray-200 text-gray-300 cursor-default`}>
+          <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
+        </span>
+      ) : (
+        <Link href={getHref(currentPage + 1)} className={`${circleBase} border-gray-300 text-gray-500 hover:bg-gray-50`}>
+          <FontAwesomeIcon icon={faChevronRight} className="text-xs" />
+        </Link>
+      )}
     </nav>
   );
 }

@@ -70,16 +70,21 @@ export default async function HomePage() {
         <div className="flex flex-col lg:flex-row gap-10">
           {/* メインカラム: 新着スポット */}
           <div className="flex-1 order-2 lg:order-1">
-            <h2 className="text-base lg:text-xl font-bold text-gray-800 mb-4 lg:mb-6 flex justify-between items-end">
+            <h2 className="text-base lg:text-xl font-bold text-gray-800 mb-4 lg:mb-6">
               新着・おすすめスポット
-              <Link href="/search" className="text-sm text-brand font-medium hover:underline">
-                すべて見る
-              </Link>
             </h2>
             <div className="grid grid-cols-2 gap-4 lg:gap-6">
               {newShops.map((shop) => (
                 <ShopCard key={shop.id} shop={shop} />
               ))}
+            </div>
+            <div className="mt-6 lg:mt-8 flex justify-center">
+              <Link
+                href="/search"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border-2 border-brand text-brand font-bold text-sm hover:bg-brand hover:text-white transition"
+              >
+                店舗一覧を見る
+              </Link>
             </div>
           </div>
 

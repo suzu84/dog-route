@@ -22,12 +22,6 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
   const [view, setView] = useState<"list" | "map">("list");
   const [mapLoaded, setMapLoaded] = useState(false);
 
-  // 検索ページはビューポート全高レイアウトのため、body スクロールを封じてフッターを隠す
-  useEffect(() => {
-    document.body.classList.add("overflow-hidden");
-    return () => document.body.classList.remove("overflow-hidden");
-  }, []);
-
   // PC幅(lg以上)では地図を分割表示するため最初からロードし、
   // モバイルでは「マップ」タブを押した時だけ遅延ロードする（コスト最適化要件）
   useEffect(() => {
@@ -103,7 +97,12 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
     : `板橋区周辺のスポット（${filteredShops.length}件）`;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-57px)] lg:h-[calc(100vh-73px)]">
+    // モバイルリスト表示: 高さ制約なし（通常ページフロー、フッターまでスクロール可）
+    // モバイルマップ表示: ビューポート固定（マップが画面を埋める）
+    // デスクトップ: 常にビューポート固定・左右分割
+    <div className={`flex flex-col lg:h-[calc(100dvh-73px)] ${
+      view === "map" ? "h-[calc(100dvh-57px)]" : ""
+    }`}>
       {/* モバイル: リスト/マップ切替タブ */}
       <div className="lg:hidden bg-white px-4 py-2 border-b border-gray-100 flex justify-center">
         <div className="bg-gray-100 p-1 rounded-lg flex text-xs font-bold">
@@ -135,11 +134,14 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
         onToggleTag={handleToggleTag}
       />
 
-      <div className="flex-1 flex overflow-hidden">
+      {/* モバイルリスト: block（通常フロー）、モバイルマップ: flex flex-1、デスクトップ: flex flex-1 */}
+      <div className={`lg:flex lg:flex-1 lg:overflow-hidden ${
+        view === "map" ? "flex flex-1 overflow-hidden" : "block"
+      }`}>
         {/* リスト */}
         <div
-          className={`overflow-y-auto no-scrollbar p-4 lg:p-8 bg-gray-50 w-full lg:w-[55%] ${
-            view === "map" ? "hidden lg:block" : "block"
+          className={`bg-gray-50 w-full lg:w-[55%] lg:overflow-y-auto lg:overscroll-contain lg:no-scrollbar lg:p-8 ${
+            view === "map" ? "hidden" : "block p-4"
           }`}
         >
           <h2 className="text-lg lg:text-xl font-bold text-gray-800 mb-4 lg:mb-6">{heading}</h2>
@@ -162,8 +164,8 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
 
         {/* マップ */}
         <div
-          className={`relative bg-gray-200 border-l border-gray-300 w-full lg:w-[45%] ${
-            view === "list" ? "hidden lg:block" : "block"
+          className={`relative bg-gray-200 lg:border-l lg:border-gray-300 lg:w-[45%] ${
+            view === "list" ? "hidden lg:block" : "flex-1"
           }`}
         >
           {mapLoaded && (

@@ -22,6 +22,12 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
   const [view, setView] = useState<"list" | "map">("list");
   const [mapLoaded, setMapLoaded] = useState(false);
 
+  // 検索ページはビューポート全高レイアウトのため、body スクロールを封じてフッターを隠す
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+    return () => document.body.classList.remove("overflow-hidden");
+  }, []);
+
   // PC幅(lg以上)では地図を分割表示するため最初からロードし、
   // モバイルでは「マップ」タブを押した時だけ遅延ロードする（コスト最適化要件）
   useEffect(() => {

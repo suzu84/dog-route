@@ -162,7 +162,7 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
         >
           {mapLoaded && (
             <LazyMapView
-              shops={pagedShops}
+              shops={filteredShops}
               selectedShopId={selectedShopId}
               height="100%"
             />

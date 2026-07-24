@@ -9,7 +9,7 @@ export default function ArticleContent({ content }: { content: ArticleContentBlo
           return (
             <div
               key={index}
-              className="prose prose-sm lg:prose-lg max-w-none text-gray-700 prose-headings:border-l-4 prose-headings:border-brand prose-headings:pl-3 [&_h2]:my-6"
+              className="prose prose-sm lg:prose-lg max-w-none text-gray-700"
               dangerouslySetInnerHTML={{ __html: block.text }}
             />
           );

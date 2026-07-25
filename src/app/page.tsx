@@ -73,7 +73,7 @@ export default async function HomePage() {
             <h2 className="text-base lg:text-xl font-bold text-gray-800 mb-4 lg:mb-6">
               新着・おすすめスポット
             </h2>
-            <div className="grid grid-cols-2 gap-4 lg:gap-6">
+            <div className="grid grid-cols-1 gap-4 lg:gap-6">
               {newShops.map((shop) => (
                 <ShopCard key={shop.id} shop={shop} />
               ))}

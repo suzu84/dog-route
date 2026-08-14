@@ -89,6 +89,7 @@ export interface Article extends MicroCMSListContent {
   title: string;
   mainImage?: MicroCMSImage;
   category: ArticleCategory;
+  read?: string;
   content: ArticleContentBlock[];
 }
 

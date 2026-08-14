@@ -19,7 +19,9 @@ function parseTags(value: string | null): ShopTag[] {
 export default function SearchPageClient({ shops }: { shops: Shop[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [view, setView] = useState<"list" | "map">("list");
+  const [view, setView] = useState<"list" | "map">(
+    () => (searchParams.get("view") === "map" ? "map" : "list")
+  );
   const [mapLoaded, setMapLoaded] = useState(false);
 
   // PC幅(lg以上)では地図を分割表示するため最初からロードし、

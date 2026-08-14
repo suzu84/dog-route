@@ -104,14 +104,39 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
 
       <div className="max-w-5xl mx-auto px-5 lg:px-8 py-8 lg:py-12 flex flex-col lg:flex-row gap-12">
         <div className="flex-1 lg:max-w-[700px]">
+          {/* リード分 */}
+          {article.read && (
+            <div
+              className="prose prose-sm lg:prose-lg max-w-none text-gray-700 mb-6"
+              dangerouslySetInnerHTML={{ __html: article.read }}
+            />
+          )}
+          {/* SP: 目次をリード分の後・本文の前に表示 */}
+          {headings.length > 0 && (
+            <div className="lg:hidden bg-white border border-gray-200 p-5 rounded-2xl shadow-sm mb-6">
+              <h3 className="text-sm font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">
+                目次
+              </h3>
+              <ul className="text-sm text-gray-600 space-y-3">
+                {headings.map((heading, index) => (
+                  <li key={index}>
+                    <a href={`#${heading.id}`} className="hover:text-brand transition-colors leading-snug block">
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <ArticleContent content={processedBlocks} />
         </div>
 
         {(headings.length > 0 || relatedArticles.length > 0) && (
           <div className="lg:w-[300px]">
             <div className="lg:sticky lg:top-24">
+              {/* PC: 目次をサイドバーに表示（SPでは本文先頭に移動済み） */}
               {headings.length > 0 && (
-                <div className="bg-white border border-gray-200 p-5 lg:p-6 rounded-2xl shadow-sm mb-6">
+                <div className="hidden lg:block bg-white border border-gray-200 p-5 lg:p-6 rounded-2xl shadow-sm mb-6">
                   <h3 className="text-sm lg:text-base font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">
                     目次
                   </h3>

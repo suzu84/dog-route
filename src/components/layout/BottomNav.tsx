@@ -8,9 +8,9 @@ import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import BookmarkCountBadge from "@/components/shop/BookmarkCountBadge";
 
 const ITEMS = [
-  { href: "/", label: "ホーム", icon: faHouse },
-  { href: "/search", label: "マップ", icon: faMapLocationDot },
-  { href: "/articles", label: "特集記事", icon: faNewspaper },
+  { href: "/", label: "ホーム", icon: faHouse, activePath: "/" },
+  { href: "/search?view=map", label: "マップ", icon: faMapLocationDot, activePath: "/search" },
+  { href: "/articles", label: "特集記事", icon: faNewspaper, activePath: "/articles" },
 ];
 
 export default function BottomNav() {
@@ -23,7 +23,9 @@ export default function BottomNav() {
           key={item.href}
           href={item.href}
           className={`flex flex-col items-center ${
-            pathname === item.href ? "text-brand" : "text-gray-400"
+            (item.activePath === "/" ? pathname === "/" : pathname.startsWith(item.activePath))
+              ? "text-brand"
+              : "text-gray-400"
           }`}
         >
           <FontAwesomeIcon icon={item.icon} className="text-lg mb-1" />

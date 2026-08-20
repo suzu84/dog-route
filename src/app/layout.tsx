@@ -34,6 +34,10 @@ export const metadata: Metadata = {
   robots: process.env.VERCEL_ENV === "preview"
     ? { index: false, follow: false }
     : { index: true, follow: true },
+  icons: {
+    icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
     siteName: "DOG ROUTE",
     locale: "ja_JP",

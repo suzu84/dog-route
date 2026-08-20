@@ -5,6 +5,7 @@ import { faPaw } from "@fortawesome/free-solid-svg-icons";
 const NAV_LINKS = [
   { label: "スポット検索", href: "/search" },
   { label: "特集記事", href: "/articles" },
+  { label: "DOG ROUTEとは", href: "/about" },
   { label: "お気に入り", href: "/bookmarks" },
 ];
 

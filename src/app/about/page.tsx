@@ -1,12 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
 import AboutSlider from "@/components/about/AboutSlider";
 
 export const metadata: Metadata = {
-  title: "DOG ROUTE（ドッグルート）とは？",
+  title: "DOG ROUTE（ドッグルート）とは",
   description:
-    "DOG ROUTE（ドッグルート）は、板橋区の犬関連情報に特化した地域密着型ポータルサイトです。立ち上げの経緯や掲載依頼についてご紹介します。",
+    "DOG ROUTE（ドッグルート）は、板橋区の犬関連情報に特化した地域密着型ポータルサイトです。板橋区のドッグランやトリミングサロン、動物病院、ワンちゃんと入れるカフェ・レストランなどの情報を掲載しております。",
 };
 
 export default function AboutPage() {
@@ -176,17 +175,18 @@ export default function AboutPage() {
             className="text-base text-gray-900 leading-relaxed max-w-2xl"
             style={{ fontFamily: "'Noto Sans JP', sans-serif" }}
           >
-            DOG ROUTE（ドッグルート）に掲載されていない店舗や施設がございましたら、お気軽に以下よりお問い合わせください。
+            DOG ROUTE（ドッグルート）に掲載されていない店舗や施設がございましたら、<br />
+            お気軽に以下よりお問い合わせください。
             <br />
-            掲載料は無料となっておりますので、ご安心ください。
+            ※掲載料は無料となっておりますので、ご安心ください。
           </p>
 
-          <Link
-            href="/contact"
+          <a
+            href={`mailto:info@dogroute.jp?subject=${encodeURIComponent("[DOG ROUTE] 掲載のご依頼")}&body=${encodeURIComponent("お店の名前：\nご担当者名：\nメールアドレス：\n電話番号：\n住所：\n\nその他ご要望・ご質問：\n")}`}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-brand text-white font-bold text-base hover:bg-white hover:text-brand border-2 border-brand transition"
           >
             掲載依頼をする
-          </Link>
+          </a>
         </div>
       </section>
     </div>

@@ -50,6 +50,24 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "DOG ROUTE",
+    url: SITE_URL,
+    logo: `${SITE_URL}/icon.png`,
+    description: DEFAULT_DESCRIPTION,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "DOG ROUTE",
+    url: SITE_URL,
+    inLanguage: "ja-JP",
+  },
+];
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -68,6 +86,10 @@ export default function RootLayout({
             __html:
               "try{if(sessionStorage.getItem('dogroute_intro_shown'))document.documentElement.classList.add('intro-seen')}catch(e){}",
           }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-gray-50">

@@ -102,7 +102,7 @@ export default function RootLayout({
           />
         </noscript>
         <Header />
-        <main className="flex-1 pb-20 lg:pb-0">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
         <BottomNav />
       </body>

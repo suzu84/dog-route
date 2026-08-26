@@ -12,6 +12,7 @@ const NAV_LINKS = [
 const SUPPORT_LINKS = [
   { label: "お問い合わせ", href: "/contact" },
   { label: "掲載のご依頼", href: "/contact?type=listing" },
+  { label: "よくあるご質問", href: "/faq" },
   { label: "個人情報保護方針", href: "/privacy" },
 ];
 

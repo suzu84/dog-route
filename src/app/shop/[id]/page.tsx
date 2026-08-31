@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { CATEGORY_ICONS } from "@/lib/constants";
 import { getAllShops, getArticlesByShopId, getShop } from "@/lib/microcms";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import TagBadge from "@/components/shop/TagBadge";
 import BookmarkButton from "@/components/shop/BookmarkButton";
 import RealReportBox from "@/components/shop/RealReportBox";
@@ -85,6 +86,14 @@ export default async function ShopDetailPage({ params, searchParams }: ShopPageP
       />
 
       <ShopDetailMobileHeader shopId={shop.id} />
+      <Breadcrumbs
+        className="hidden lg:flex"
+        items={[
+          { label: "ホーム", href: "/" },
+          { label: "スポット検索", href: "/search" },
+          { label: shop.name },
+        ]}
+      />
 
       {/* ギャラリー: SPは一覧カードと同じ縦横比(4:3)、PCは横長 */}
       <div className="relative w-full aspect-[4/3] lg:hidden overflow-hidden">

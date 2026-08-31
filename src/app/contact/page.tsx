@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "お問い合わせ",
@@ -57,7 +58,9 @@ function mailtoHref(subject: string, body: string) {
 
 export default function ContactPage() {
   return (
-    <div className="max-w-2xl mx-auto px-5 lg:px-0 py-10 lg:py-16">
+    <>
+      <Breadcrumbs items={[{ label: "ホーム", href: "/" }, { label: "お問い合わせ" }]} />
+      <div className="max-w-2xl mx-auto px-5 lg:px-0 py-10 lg:py-16">
       <h1 className="text-2xl lg:text-3xl font-black text-gray-900 mb-2">お問い合わせ</h1>
       <p className="text-sm text-gray-500 mb-10">
         ご用件の種別をお選びください。メールアプリが開き、件名・本文のテンプレートが自動入力されます。
@@ -90,5 +93,6 @@ export default function ContactPage() {
         に基づき適切に管理します。
       </p>
     </div>
+    </>
   );
 }

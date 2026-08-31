@@ -3,6 +3,7 @@ import { getAllArticles } from "@/lib/microcms";
 import { PAGE_SIZE } from "@/lib/constants";
 import ArticleCard from "@/components/article/ArticleCard";
 import Pagination from "@/components/ui/Pagination";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "特集記事一覧",
@@ -25,7 +26,9 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-5 lg:px-8 py-8 lg:py-12">
+    <>
+      <Breadcrumbs items={[{ label: "ホーム", href: "/" }, { label: "特集記事" }]} />
+      <div className="max-w-6xl mx-auto px-5 lg:px-8 py-8 lg:py-12">
       <h1 className="text-xl lg:text-2xl font-bold text-gray-900 mb-6 lg:mb-8">特集記事一覧</h1>
       {articles.length === 0 ? (
         <p className="text-center text-gray-400 py-20">現在、記事はありません</p>
@@ -42,5 +45,6 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
         getHref={(p) => (p > 1 ? `/articles?page=${p}` : "/articles")}
       />
     </div>
+    </>
   );
 }

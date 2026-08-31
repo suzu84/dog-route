@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getAllShops } from "@/lib/microcms";
 import BookmarksPageClient from "@/components/bookmarks/BookmarksPageClient";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "保存リスト",
@@ -11,9 +12,12 @@ export default async function BookmarksPage() {
   const shops = await getAllShops();
 
   return (
-    <div className="max-w-6xl mx-auto px-5 lg:px-8 py-8 lg:py-12">
+    <>
+      <Breadcrumbs items={[{ label: "ホーム", href: "/" }, { label: "保存リスト" }]} />
+      <div className="max-w-6xl mx-auto px-5 lg:px-8 py-8 lg:py-12">
       <h1 className="text-xl lg:text-2xl font-bold text-gray-900 mb-6 lg:mb-8">保存リスト</h1>
       <BookmarksPageClient shops={shops} />
     </div>
+    </>
   );
 }

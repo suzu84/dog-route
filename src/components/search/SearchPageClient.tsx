@@ -8,7 +8,10 @@ import FilterBar from "./FilterBar";
 import ShopCard from "@/components/shop/ShopCard";
 import LazyMapView from "@/components/map/LazyMapView";
 import Pagination from "@/components/ui/Pagination";
-import { PAGE_SIZE } from "@/lib/constants";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import CategoryLink from "@/components/filters/CategoryLink";
+import { PAGE_SIZE, CATEGORY_SLUG_MAP } from "@/lib/constants";
+import { SHOP_CATEGORIES } from "@/lib/types";
 import type { Shop, ShopCategory, ShopTag } from "@/lib/types";
 
 function parseTags(value: string | null): ShopTag[] {
@@ -16,7 +19,13 @@ function parseTags(value: string | null): ShopTag[] {
   return value.split(",").filter(Boolean) as ShopTag[];
 }
 
-export default function SearchPageClient({ shops }: { shops: Shop[] }) {
+export default function SearchPageClient({
+  shops,
+  initialCategory,
+}: {
+  shops: Shop[];
+  initialCategory?: ShopCategory;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [view, setView] = useState<"list" | "map">(
@@ -40,40 +49,40 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
     if (view === "map") setMapLoaded(true);
   }, [view]);
 
-  const selectedCategory = (searchParams.get("category") || undefined) as
-    | ShopCategory
-    | undefined;
+  const selectedCategory = initialCategory;
   const selectedTags = parseTags(searchParams.get("tags"));
   const [selectedShopId, setSelectedShopId] = useState<string | undefined>(undefined);
 
-  const updateParams = (category?: ShopCategory, tags?: ShopTag[], page = 1) => {
+  const updateParams = (tags?: ShopTag[], page = 1) => {
     const params = new URLSearchParams();
-    if (category) params.set("category", category);
     if (tags && tags.length > 0) params.set("tags", tags.join(","));
     if (page > 1) params.set("page", String(page));
-    router.replace(`/search${params.toString() ? `?${params}` : ""}`, {
-      scroll: false,
-    });
-  };
-
-  // フィルタ条件を変えたときは1ページ目に戻す
-  const handleToggleCategory = (category: ShopCategory) => {
-    updateParams(selectedCategory === category ? undefined : category, selectedTags);
+    const query = params.toString() ? `?${params}` : "";
+    if (selectedCategory) {
+      const slug = CATEGORY_SLUG_MAP[selectedCategory];
+      router.replace(`/search/itabashi/${slug}${query}`, { scroll: false });
+    } else {
+      router.replace(`/search${query}`, { scroll: false });
+    }
   };
 
   const handleToggleTag = (tag: ShopTag) => {
     const next = selectedTags.includes(tag)
       ? selectedTags.filter((t) => t !== tag)
       : [...selectedTags, tag];
-    updateParams(selectedCategory, next);
+    updateParams(next);
   };
 
   const getPageHref = (page: number) => {
     const params = new URLSearchParams();
-    if (selectedCategory) params.set("category", selectedCategory);
     if (selectedTags.length > 0) params.set("tags", selectedTags.join(","));
     if (page > 1) params.set("page", String(page));
-    return `/search${params.toString() ? `?${params}` : ""}`;
+    const query = params.toString() ? `?${params}` : "";
+    if (selectedCategory) {
+      const slug = CATEGORY_SLUG_MAP[selectedCategory];
+      return `/search/itabashi/${slug}${query}`;
+    }
+    return `/search${query}`;
   };
 
   const filteredShops = useMemo(() => {
@@ -98,6 +107,14 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
     ? `板橋区周辺の${selectedCategory}（${filteredShops.length}件）`
     : `板橋区周辺のスポット（${filteredShops.length}件）`;
 
+  const breadcrumbItems = selectedCategory
+    ? [
+        { label: "ホーム", href: "/" },
+        { label: "スポット検索", href: "/search" },
+        { label: selectedCategory },
+      ]
+    : [{ label: "ホーム", href: "/" }, { label: "スポット検索" }];
+
   return (
     // モバイルリスト表示: 高さ制約なし（通常ページフロー、フッターまでスクロール可）
     // モバイルマップ表示: ビューポート固定（マップが画面を埋める）
@@ -105,6 +122,11 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
     <div className={`flex flex-col lg:h-[calc(100dvh-73px)] ${
       view === "map" ? "h-[calc(100dvh-57px)]" : ""
     }`}>
+      {/* パンくず: モバイルマップ表示時は非表示 */}
+      <div className={view === "map" ? "hidden lg:block" : "block"}>
+        <Breadcrumbs items={breadcrumbItems} />
+      </div>
+
       {/* モバイル: リスト/マップ切替タブ */}
       <div className="lg:hidden bg-white px-4 py-2 border-b border-gray-100 flex justify-center">
         <div className="bg-gray-100 p-1 rounded-lg flex text-xs font-bold">
@@ -129,10 +151,22 @@ export default function SearchPageClient({ shops }: { shops: Shop[] }) {
         </div>
       </div>
 
+      {/* カテゴリパネル: /search/ のみ表示、モバイルマップ時は非表示 */}
+      {!initialCategory && (
+        <div className={`bg-white border-b border-gray-100 px-5 lg:px-8 py-4 ${
+          view === "map" ? "hidden lg:block" : "block"
+        }`}>
+          <p className="text-sm font-bold text-gray-700 mb-3">カテゴリから探す</p>
+          <div className="flex gap-5 lg:gap-8 overflow-x-auto no-scrollbar">
+            {SHOP_CATEGORIES.map((cat) => (
+              <CategoryLink key={cat} category={cat} />
+            ))}
+          </div>
+        </div>
+      )}
+
       <FilterBar
-        selectedCategory={selectedCategory}
         selectedTags={selectedTags}
-        onToggleCategory={handleToggleCategory}
         onToggleTag={handleToggleTag}
       />
 

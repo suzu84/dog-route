@@ -6,6 +6,7 @@ import { processContent } from "@/lib/extract-headings";
 import ArticleContent from "@/components/article/ArticleContent";
 import ArticleCard from "@/components/article/ArticleCard";
 import ArticleDetailMobileHeader from "@/components/article/ArticleDetailMobileHeader";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 interface ArticlePageProps {
   params: Promise<{ id: string }>;
@@ -73,6 +74,14 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
       />
 
       <ArticleDetailMobileHeader />
+      <Breadcrumbs
+        className="hidden lg:flex"
+        items={[
+          { label: "ホーム", href: "/" },
+          { label: "特集記事", href: "/articles" },
+          { label: article.title },
+        ]}
+      />
 
       <div className="w-full bg-white border-b border-gray-100 pt-6 lg:pt-12 pb-8 lg:pb-16 px-5 lg:px-8">
         <div className="max-w-4xl mx-auto">

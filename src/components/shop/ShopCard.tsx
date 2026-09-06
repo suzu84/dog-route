@@ -11,9 +11,12 @@ interface ShopCardProps {
   shop: Shop;
   /** trueの場合、説明文を表示する大きめのカード(検索結果向け) */
   detailed?: boolean;
+  /** 見出しレベル。ページのh1直下ならh2、h2セクション配下ならh3 */
+  headingLevel?: 2 | 3;
 }
 
-export default function ShopCard({ shop, detailed = false }: ShopCardProps) {
+export default function ShopCard({ shop, detailed = false, headingLevel = 3 }: ShopCardProps) {
+  const Heading = `h${headingLevel}` as "h2" | "h3";
   return (
     <Link
       href={`/shop/${shop.id}`}
@@ -39,7 +42,7 @@ export default function ShopCard({ shop, detailed = false }: ShopCardProps) {
           ))}
         </div>
         <div className="flex justify-between items-start mb-1 gap-2">
-          <h3 className="text-sm lg:text-base font-bold text-gray-800">{shop.name}</h3>
+          <Heading className="text-sm lg:text-base font-bold text-gray-800">{shop.name}</Heading>
           {shop.rating && (
             <span className="text-xs font-bold text-gray-800 flex items-center shrink-0">
               <FontAwesomeIcon icon={faStar} className="text-yellow-400 mr-1" />

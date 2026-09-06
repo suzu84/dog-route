@@ -83,7 +83,7 @@ export default async function HomePage() {
                 href="/search"
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand text-white font-bold text-sm hover:bg-white hover:text-brand border-2 border-brand transition"
               >
-                店舗一覧を見る
+                スポット一覧を見る
               </Link>
             </div>
           </div>

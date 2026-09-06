@@ -104,8 +104,8 @@ export default function SearchPageClient({
   );
 
   const heading = selectedCategory
-    ? `板橋区周辺の${selectedCategory}（${filteredShops.length}件）`
-    : `板橋区周辺のスポット（${filteredShops.length}件）`;
+    ? `板橋区の${selectedCategory}一覧`
+    : "板橋区のスポット一覧";
 
   const breadcrumbItems = selectedCategory
     ? [
@@ -180,7 +180,8 @@ export default function SearchPageClient({
             view === "map" ? "hidden" : "block p-4"
           }`}
         >
-          <h2 className="text-lg lg:text-xl font-bold text-gray-800 mb-4 lg:mb-6">{heading}</h2>
+          <h1 className="text-lg lg:text-xl font-bold text-gray-800 mb-1">{heading}</h1>
+          <p className="text-xs text-gray-400 mb-4 lg:mb-6">{filteredShops.length}件</p>
           {pagedShops.length === 0 ? (
             <p className="text-sm text-gray-500">条件に合うスポットが見つかりませんでした。</p>
           ) : (
@@ -190,7 +191,7 @@ export default function SearchPageClient({
                   key={shop.id}
                   onMouseEnter={() => setSelectedShopId(shop.id)}
                 >
-                  <ShopCard shop={shop} detailed />
+                  <ShopCard shop={shop} detailed headingLevel={2} />
                 </div>
               ))}
             </div>

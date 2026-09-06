@@ -13,7 +13,7 @@ export default function TagsSection() {
 
   return (
     <div className="flex-1">
-      <p className="text-xs font-bold text-gray-500 mb-3">こだわり条件で一発検索</p>
+      <p className="text-xs font-bold text-gray-500 mb-3">こだわり条件で探す</p>
       <div className="flex flex-wrap gap-2 items-center">
         {(expanded ? SHOP_TAGS : FEATURED_TAGS).map((tag) => (
           <TagLink key={tag} tag={tag} />

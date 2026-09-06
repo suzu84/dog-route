@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import AboutSlider from "@/components/about/AboutSlider";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "DOG ROUTE（ドッグルート）とは",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="bg-white">
+      <Breadcrumbs items={[{ label: "ホーム", href: "/" }, { label: "DOG ROUTEとは？" }]} />
       {/* ── MV ── */}
       <section className="relative w-full h-[300px] lg:h-[500px] overflow-hidden">
         <Image

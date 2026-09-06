@@ -20,6 +20,22 @@ import type { ShopCategory, ShopTag } from "./types";
 export const SITE_NAME = "DOG ROUTE";
 export const SITE_AREA = "板橋区周辺";
 
+export const CATEGORY_SLUG_MAP: Record<string, string> = {
+  "カフェ・レストラン": "cafe",
+  "トリミングサロン": "trimming",
+  "ドッグラン": "dogrun",
+  "動物病院": "hospital",
+  "ペットホテル": "hotel",
+};
+
+export const SLUG_CATEGORY_MAP: Record<string, string> = {
+  "cafe": "カフェ・レストラン",
+  "trimming": "トリミングサロン",
+  "dogrun": "ドッグラン",
+  "hospital": "動物病院",
+  "hotel": "ペットホテル",
+};
+
 export const CATEGORY_ICONS: Record<ShopCategory, IconDefinition> = {
   "カフェ・レストラン": faMugHot,
   トリミングサロン: faScissors,

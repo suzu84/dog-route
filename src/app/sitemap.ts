@@ -1,14 +1,22 @@
 import type { MetadataRoute } from "next";
 import { getAllShops, getAllArticles } from "@/lib/microcms";
+import { CATEGORY_SLUG_MAP } from "@/lib/constants";
 
 const BASE_URL = "https://dogroute.jp";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [shops, articles] = await Promise.all([getAllShops(), getAllArticles()]);
 
+  const categoryPages: MetadataRoute.Sitemap = Object.values(CATEGORY_SLUG_MAP).map((slug) => ({
+    url: `${BASE_URL}/search/itabashi/${slug}`,
+    changeFrequency: "daily" as const,
+    priority: 0.9,
+  }));
+
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, changeFrequency: "daily", priority: 1.0 },
     { url: `${BASE_URL}/search`, changeFrequency: "daily", priority: 0.9 },
+    ...categoryPages,
     { url: `${BASE_URL}/articles`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/about`, changeFrequency: "yearly", priority: 0.5 },
     { url: `${BASE_URL}/contact`, changeFrequency: "yearly", priority: 0.3 },

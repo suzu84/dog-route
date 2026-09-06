@@ -4,7 +4,7 @@ import { getAllShops } from "@/lib/microcms";
 import SearchPageClient from "@/components/search/SearchPageClient";
 
 export const metadata: Metadata = {
-  title: "マップから探す",
+  title: "スポットから探す",
   description: "板橋区周辺の愛犬と入れるカフェ・サロン・ドッグラン・病院をカテゴリやこだわり条件で絞り込んで検索できます。",
 };
 

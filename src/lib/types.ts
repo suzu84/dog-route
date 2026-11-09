@@ -75,13 +75,14 @@ export const ARTICLE_CATEGORIES: ArticleCategory[] = [
 
 export interface ArticleTextBlock {
   fieldId: "text";
-  text: string;
+  /** 空の場合 microCMS は text キーを返さない */
+  text?: string;
 }
 
 export interface ArticleShopBlock {
   fieldId: "shop";
   /** microCMSの設定により、複数参照なら配列、単一参照ならオブジェクトで返る */
-  shop: Shop | Shop[];
+  shop?: Shop | Shop[];
 }
 
 export type ArticleContentBlock = ArticleTextBlock | ArticleShopBlock;

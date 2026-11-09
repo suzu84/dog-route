@@ -16,7 +16,7 @@ export default function ArticleContent({ content }: { content: ArticleContentBlo
         }
         return (
           <div key={index}>
-            {block.shop.map((shop) => (
+            {(Array.isArray(block.shop) ? block.shop : [block.shop]).map((shop) => (
               <ShopEmbedBlock key={shop.id} shop={shop} />
             ))}
           </div>

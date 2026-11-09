@@ -80,7 +80,8 @@ export interface ArticleTextBlock {
 
 export interface ArticleShopBlock {
   fieldId: "shop";
-  shop: Shop[];
+  /** microCMSの設定により、複数参照なら配列、単一参照ならオブジェクトで返る */
+  shop: Shop | Shop[];
 }
 
 export type ArticleContentBlock = ArticleTextBlock | ArticleShopBlock;

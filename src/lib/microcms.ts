@@ -77,7 +77,8 @@ export async function getArticlesByShopId(shopId: string): Promise<Article[]> {
   const articles = await getAllArticles();
   return articles.filter((article) =>
     article.content.some(
-      (block) => block.fieldId === "shop" && block.shop.some((shop) => shop.id === shopId)
+      (block) => block.fieldId === "shop" &&
+        (Array.isArray(block.shop) ? block.shop : [block.shop]).some((shop) => shop.id === shopId)
     )
   );
 }

@@ -17,7 +17,8 @@ export function processContent(content: ArticleContentBlock[]): {
   let counter = 0;
 
   const blocks = content.map((block) => {
-    if (block.fieldId !== "text") return block;
+    // 下書きや空のリッチエディタは text キー自体が返らないことがある
+    if (block.fieldId !== "text" || !block.text) return block;
 
     const processedText = block.text.replace(
       /<h2([^>]*)>([\s\S]*?)<\/h2>/g,

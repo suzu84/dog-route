@@ -6,6 +6,7 @@ export default function ArticleContent({ content }: { content: ArticleContentBlo
     <div>
       {content.map((block, index) => {
         if (block.fieldId === "text") {
+          if (!block.text) return null;
           return (
             <div
               key={index}
@@ -14,6 +15,7 @@ export default function ArticleContent({ content }: { content: ArticleContentBlo
             />
           );
         }
+        if (!block.shop) return null;
         return (
           <div key={index}>
             {(Array.isArray(block.shop) ? block.shop : [block.shop]).map((shop) => (

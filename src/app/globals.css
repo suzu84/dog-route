@@ -134,7 +134,41 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* 記事コンテンツ: テーブル */
+/* 記事コンテンツ: テーブル（コンテンツ幅を超える場合は横スクロール） */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+  border-radius: 0.25rem;
+}
+.table-scroll table {
+  margin: 0;
+  /* 列が潰れて読めなくならないよう最小幅を確保し、足りなければ横スクロールさせる */
+  min-width: 36rem;
+}
+.table-scroll th,
+.table-scroll td {
+  min-width: 6rem;
+}
+/* スクロール可能であることの案内（スマホ・タブレット幅のみ） */
+.table-scroll-hint {
+  display: none;
+  margin-top: 1.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  color: #6b7280;
+  text-align: right;
+}
+@media (max-width: 1023px) {
+  .table-scroll-hint {
+    display: block;
+  }
+  .table-scroll {
+    margin-top: 0;
+  }
+}
+
 .prose table {
   border-collapse: collapse;
   width: 100%;
